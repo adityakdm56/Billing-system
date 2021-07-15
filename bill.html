@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quaint labs food products</title>
+<style>
+	table,th,td {
+		   border: 1px solid black;
+    		   border-collapse: collapse;
+	}
+	th.c{
+		background-color:#E0E9F0;
+	}
+</style>
+<style type="text/css" media="print">
+@page {
+    size: auto;   /* auto is the initial value */
+    margin: 10px;  /* this affects the margin in the printer settings */
+}
+</style>
+<script src="jquery-3.3.1.slim.min.js"></script>
+</head>
+<body>
+
+<table align=center id=main>
+	
+	<tr>
+		<th class=c colspan="15" text-align="center" >GST Invoice </th>
+	</tr>
+	<tr>
+		<td colspan=15 style="font-size:17px;">
+<pre><h1>              Quaint Labs Food Products</h1></pre>
+
+<pre>   Office address: 6,Sawali,New Kranti Society,			Mfg site: Gat NO.1532,Plot No.6,
+                   Sambhaji nagar,Satara,415004				  Degaon,Satara 415004
+</pre>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=15 style="font-size:17px;">
+<pre>	Phone No.:8007607913
+	FSSAI Lic No.:11517039001283	
+	GST No.27AJCPJ6883D1Z4
+</pre>
+		</td>
+	</tr>					
+	<tr>
+		<td rowspan=3 style="border-bottom-style:none;"></td>
+		<td rowspan=2 colspan="4" style="border-top-style:none;" id=bill>Bill to
+			<form>
+  				<input type="text" name="bill" id="inbill" autocomplete="on" onchange="ch()">
+ 			 	
+				<script>
+	//				var arr=new array();
+	//				var i,r;
+	//				localStorage.count=1+localStorage.count;
+	//				r=localStorage.count;
+	//				arr.push(document.getElementById("inbill").value);
+	//				localStorage.setItem(localStorage.count.toString(),arr[(arr.length-1)]);
+	//				for(i=1;i<=localStorage.count;i++) {
+	//					arr[i]=localStorage.getItem(i.toString());
+	//				}
+					function ch(){
+					document.getElementById("insup").value=document.getElementById("inbill").value;
+					
+					document.getElementById("gstn").value=localStorage.getItem(document.getElementById("inbill").value);
+					document.getElementById("ph").value=localStorage.getItem(document.getElementById("insup").value +"s");
+					 if(typeof(Storage) !== "undefined") {
+						if (localStorage.cnt) {
+				    			localStorage.cnt = Number(localStorage.cnt) + 1;
+						} else {
+						    localStorage.cnt =011;
+						}
+						document.getElementById("invcno").innerHTML=(new Date().getFullYear() +"/A" + "0" +localStorage.cnt );
+						}	
+					}
+					
+  				</script>
+			</form>
+		</td>
+		<td rowspan=2 colspan=6 id=supply>Supply to
+			<form>
+  				<input type="text" name="supply" id="insup" autocompete="on" id=supply>
+				<script>
+					document.getElementById("insup").value=document.getElementById("inbill").value;
+				</script>
+  				
+			</form>
+		</td>
+		<td colspan=2>Invoice No.</td>
+		<td colspan=2  id=invcno>
+			&nbsp;
+		</td>
+	</tr>
+
+	<script>
+		function gstnchange(){		
+			localStorage.setItem(document.getElementById("inbill").value,document.getElementById("gstn").value);
+		}
+		function phchange(){
+			
+			localStorage.setItem(document.getElementById("insup").value + "s",document.getElementById("ph").value);
+		}
+		
+	</script>
+	<tr>
+		
+		<td colspan=2>Date</td>
+		<td colspan=2 id="date">
+			<script>
+				var d=new Date();
+				document.getElementById("date").innerHTML=d.getDate() +"-"+d.getMonth() +"-"+d.getFullYear();
+			</script>
+	</tr>
+	<tr>
+		<td colspan=4 id=gstin onchange=gstnchange()>GSTIN:<input id=gstn type=text autocomplete=on ></td>
+		<td colspan=6 id=phno onchange=phchange()>Phone No.:<input id=ph type=text size=10 autocomplete=on></td>
+		<td colspan=4 rowspan=2><textarea rows=3 cols=30 style="font-size:17px">Payment Terms:</textarea></td>
+	</tr>
+	<tr>
+		<td colspan=11>&nbsp;</td>
+	</tr>
+
+	<tr>
+		<th class=c>Sr No.</th>
+		<th class=c>SKU</th>
+		<th class=c>Qty</th>
+		<th class="c"><pre><h2>       Product       </h2></pre></th>
+		<th class="c" colspan=2>Batch No.</th>
+		<th class=c>Expiry Date</th>
+		<th class=c>MRP</th>
+		<th class=c>HSN</th>
+		<th class=c>Rate</th>
+		<th class=c>Disc</th>
+		<th class=c>IGST</th>
+		<th class=c>SGST</th>
+		<th class=c>CGST</th>
+		<th class=c>Amount</th>		
+	</tr>
+	<tr id=row1>
+		<td id=sr style="text-align:center">1			
+		</td>
+		<td id=sku style="text-align:center" >	
+			<input type="text" size=5 id=insku >		
+		</td>	
+		<td id=qty style="text-align:center"><input type=text id=inqty size=1>
+		</td>
+		<td id=prod style="text-align:center">
+		</td>			
+		<td id=bchno style="text-align:center" colspan=2 ><input type=text id=inbchno size=5></td>
+		<td id=exp style="text-align:center"><input type=text id=inexp size=5></td>
+		<td id=mrp style="text-align:center">&nbsp;</td>
+		<td id=hsn style="text-align:center">2938</td>
+		<td id=rate style="text-align:center" ><input type=text id=inrate size=3></td>
+		<td id=disc style="text-align:center">0</td>
+		<td id=igst style="text-align:center"><input type=text id=inigst onkeydown=cx() size=1 value=18></td>
+		<td id=sgst style="text-align:center"><input type=text id=insgst onkeydown=cx() size=1 value=9></td>
+		<td id=cgst style="text-align:center" ><input type=text id=incgst onkeydown=cx() size=1 value=9></td>
+		<td id=amt style="text-align:center"></td>
+	</tr>
+	
+	<tr id=row2>
+		<td id=sr2 style="text-align:center">2			
+		</td>
+		<td id=sku2 style="text-align:center" >	
+			<input type="text" size=5 id=insku2 >		
+		</td>	
+		<td id=qty2 style="text-align:center"><input type=text id=inqty2 size=1>
+		</td>
+		<td id=prod2 style="text-align:center">
+		</td>			
+		<td id=bchno2 style="text-align:center" colspan=2 ><input type=text id=inbchno2 size=5></td>
+		<td id=exp2 style="text-align:center"><input type=text id=inexp2 size=5></td>
+		<td id=mrp2 style="text-align:center">&nbsp;</td>
+		<td id=hsn2 style="text-align:center">2938</td>
+		<td id=rate2 style="text-align:center"><input type=text id=inrate2 size=3></td>
+		<td id=disc2 style="text-align:center">0</td>
+		<td id=igst2 style="text-align:center"><input type=text id=inigst2 onkeydown=cx() size=1 value=18></td>
+		<td id=sgst2 style="text-align:center"><input type=text id=insgst2 onkeydown=cx() size=1 value=9></td>
+		<td id=cgst2 style="text-align:center" ><input type=text id=incgst2 onkeydown=cx() size=1 value=9></td>
+		<td id=amt2 style="text-align:center"></td>
+	</tr>
+	
+	<tr id=row3>
+		<td id=sr3 style="text-align:center">3			
+		</td>
+		<td id=sku3 style="text-align:center" >	
+			<input type="text" size=5 id=insku3 >		
+		</td>	
+		<td id=qty3 style="text-align:center"><input type=text id=inqty3 size=1>
+		</td>
+		<td id=prod3 style="text-align:center">
+		</td>			
+		<td id=bchno3 style="text-align:center" colspan=2 ><input type=text id=inbchno3 size=5></td>
+		<td id=exp3 style="text-align:center"><input type=text id=inexp3 size=5></td>
+		<td id=mrp3 style="text-align:center">&nbsp;</td>
+		<td id=hsn3 style="text-align:center">2938</td>
+		<td id=rate3 style="text-align:center" ><input type=text id=inrate3 size=3></td>
+		<td id=disc3 style="text-align:center">0</td>
+		<td id=igst3 style="text-align:center"><input type=text id=inigst3 onkeydown=cx() size=1 value=18></td>
+		<td id=sgst3 style="text-align:center"><input type=text id=insgst3 onkeydown=cx() size=1 value=9></td>
+		<td id=cgst3 style="text-align:center" ><input type=text id=incgst3 onkeydown=cx() size=1 value=9></td>
+		<td id=amt3 style="text-align:center"></td>
+	</tr>
+	
+	<tr id=row4>
+		<td id=sr4 style="text-align:center">4			
+		</td>
+		<td id=sku4 style="text-align:center" >	
+			<input type="text" size=5 id=insku4 >		
+		</td>	
+		<td id=qty4 style="text-align:center"><input type=text id=inqty4 size=1>
+		</td>
+		<td id=prod4 style="text-align:center">
+		</td>			
+		<td id=bchno4 style="text-align:center" colspan=2 ><input type=text id=inbchno4 size=5></td>
+		<td id=exp4 style="text-align:center"><input type=text id=inexp4 size=5></td>
+		<td id=mrp4 style="text-align:center">&nbsp;</td>
+		<td id=hsn4 style="text-align:center">2938</td>
+		<td id=rate4 style="text-align:center" ><input type=text id=inrate4 size=3></td>
+		<td id=disc4 style="text-align:center">0</td>
+		<td id=igst4 style="text-align:center"><input type=text id=inigst4 onkeydown=cx() size=1 value=18></td>
+		<td id=sgst4 style="text-align:center"><input type=text id=insgst4 onkeydown=cx() size=1 value=9></td>
+		<td id=cgst4 style="text-align:center" ><input type=text id=incgst4 onkeydown=cx() size=1 value=9></td>
+		<td id=amt4 style="text-align:center"></td>
+	</tr>
+	
+	<tr id=row5>
+		<td id=sr5 style="text-align:center">5			
+		</td>
+		<td id=sku5 style="text-align:center" >	
+			<input type="text" size=5 id=insku5 >		
+		</td>	
+		<td id=qty5 style="text-align:center"><input type=text id=inqty5 size=1>
+		</td>
+		<td id=prod5 style="text-align:center">
+		</td>			
+		<td id=bchno5 style="text-align:center" colspan=2 ><input type=text id=inbchno5 size=5></td>
+		<td id=exp5 style="text-align:center"><input type=text id=inexp5 size=5></td>
+		<td id=mrp5 style="text-align:center">&nbsp;</td>
+		<td id=hsn5 style="text-align:center">2938</td>
+		<td id=rate5 style="text-align:center" ><input type=text id=inrate5 size=3></td>
+		<td id=disc5 style="text-align:center">0</td>
+		<td id=igst5 style="text-align:center"><input type=text id=inigst5 onkeydown=cx() size=1 value=18></td>
+		<td id=sgst5 style="text-align:center"><input type=text id=insgst5 onkeydown=cx() size=1 value=9></td>
+		<td id=cgst5 style="text-align:center" ><input type=text id=incgst5 onkeydown=cx() size=1 value=9></td>
+		<td id=amt5 style="text-align:center"></td>
+	</tr>
+	
+		
+
+	
+
+		<script>
+			document.getElementById("insku").onkeydown=function() {
+			if(document.getElementById("insku").value=="A0101"){
+				document.getElementById("prod").innerHTML="Nectar Stevia 50gm PET";
+				document.getElementById("mrp").innerHTML="140";
+				}
+			if(document.getElementById("insku").value=="A0102"){
+				document.getElementById("prod").innerHTML="Nectar Stevia 50gm sachets";
+				document.getElementById("mrp").innerHTML="180";
+				}
+			
+			}
+			document.getElementById("insku2").onkeydown=function() {
+			if(document.getElementById("insku2").value=="A0101"){
+				document.getElementById("prod2").innerHTML="Nectar Stevia 50gm PET";
+				document.getElementById("mrp2").innerHTML="140";
+				}
+			if(document.getElementById("insku2").value=="A0102"){
+				document.getElementById("prod2").innerHTML="Nectar Stevia 50gm sachets";
+				document.getElementById("mrp2").innerHTML="180";
+				}
+			
+			}	
+			document.getElementById("insku3").onkeydown=function() {
+			if(document.getElementById("insku3").value=="A0101"){
+				document.getElementById("prod3").innerHTML="Nectar Stevia 50gm PET";
+				document.getElementById("mrp3").innerHTML="140";
+				}
+			if(document.getElementById("insku3").value=="A0102"){
+				document.getElementById("prod3").innerHTML="Nectar Stevia 50gm sachets";
+				document.getElementById("mrp3").innerHTML="180";
+				}
+			}
+			document.getElementById("insku4").onkeydown=function() {
+			if(document.getElementById("insku4").value=="A0101"){
+				document.getElementById("prod4").innerHTML="Nectar Stevia 50gm PET";
+				document.getElementById("mrp4").innerHTML="140";
+				}
+			if(document.getElementById("insku4").value=="A0102"){
+				document.getElementById("prod4").innerHTML="Nectar Stevia 50gm sachets";
+				document.getElementById("mrp4").innerHTML="180";
+				}
+			}
+			document.getElementById("insku5").onkeydown=function() {
+			if(document.getElementById("insku5").value=="A0101"){
+				document.getElementById("prod5").innerHTML="Nectar Stevia 50gm PET";
+				document.getElementById("mrp5").innerHTML="140";
+				}
+			if(document.getElementById("insku5").value=="A0102"){
+				document.getElementById("prod5").innerHTML="Nectar Stevia 50gm sachets";
+				document.getElementById("mrp5").innerHTML="180";
+				}		
+			}
+
+
+
+
+
+
+			document.getElementById("qty").onkeydown=function(){
+				document.getElementById("amt").innerHTML=Number(document.getElementById("inrate").value)*Number(document.getElementById("inqty").value);
+				document.getElementById("subt").innerHTML=document.getElementById("amt").innerHTML;
+			}
+			document.getElementById("rate").onkeydown=function(){
+				document.getElementById("amt").innerHTML=Number(document.getElementById("inrate").value)*Number(document.getElementById("inqty").value);
+				document.getElementById("subt").innerHTML=document.getElementById("amt").innerHTML;
+			}
+  			document.getElementById("row2").style.visibility = "collapse";
+
+			document.getElementById("qty2").onkeydown=function(){
+				document.getElementById("amt2").innerHTML=Number(document.getElementById("inrate2").value)*Number(document.getElementById("inqty2").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) ;
+			}
+			document.getElementById("rate2").onkeydown=function(){
+				document.getElementById("amt2").innerHTML=Number(document.getElementById("inrate2").value)*Number(document.getElementById("inqty2").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) ;
+			}
+  			document.getElementById("row3").style.visibility = "collapse";
+			
+			document.getElementById("qty3").onkeydown=function(){
+				document.getElementById("amt3").innerHTML=Number(document.getElementById("inrate3").value)*Number(document.getElementById("inqty3").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML)+ 
+									Number(document.getElementById("amt3").innerHTML);
+			}
+			document.getElementById("rate3").onkeydown=function(){
+				document.getElementById("amt3").innerHTML=Number(document.getElementById("inrate3").value)*Number(document.getElementById("inqty3").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) +
+									Number(document.getElementById("amt3").innerHTML);
+			}
+  			document.getElementById("row4").style.visibility = "collapse";
+
+			document.getElementById("qty4").onkeydown=function(){
+				document.getElementById("amt4").innerHTML=Number(document.getElementById("inrate4").value)*Number(document.getElementById("inqty4").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) +
+									Number(document.getElementById("amt3").innerHTML)+Number(document.getElementById("amt4").innerHTML);
+			}
+			document.getElementById("rate4").onkeydown=function(){
+				document.getElementById("amt4").innerHTML=Number(document.getElementById("inrate4").value)*Number(document.getElementById("inqty4").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) +
+									Number(document.getElementById("amt3").innerHTML)+Number(document.getElementById("amt4").innerHTML);
+			}
+  			document.getElementById("row5").style.visibility = "collapse";
+		
+			document.getElementById("qty5").onkeydown=function(){
+				document.getElementById("amt5").innerHTML=Number(document.getElementById("inrate5").value)*Number(document.getElementById("inqty5").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) +
+				Number(document.getElementById("amt3").innerHTML) +Number(document.getElementById("amt4").innerHTML) +Number(document.getElementById("amt5").innerHTML);
+			}
+			document.getElementById("rate5").onkeydown=function(){
+				document.getElementById("amt5").innerHTML=Number(document.getElementById("inrate5").value)*Number(document.getElementById("inqty5").value);
+				document.getElementById("subt").innerHTML=Number(document.getElementById("amt").innerHTML)+Number(document.getElementById("amt2").innerHTML) +
+				Number(document.getElementById("amt3").innerHTML)+Number(document.getElementById("amt4").innerHTML)+Number(document.getElementById("amt5").innerHTML);
+			}
+ 	
+						
+		</script>
+	
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>
+		<tr><td colspan=15 style="border:none">&nbsp;</td></tr>	
+		
+		<tr>
+			<td colspan=11 rowspan=7></td>
+			<td colspan=2>Subtotal</td>
+			<td colspan=2 id=subt>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=2>IGST payble</td>
+			<td colspan=2 id=igstpay>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=2>SGST payble</td>
+			<td colspan=2 id=sgstpay >&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=2>CGST payble</td>
+			<td colspan=2 id=cgstpay>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=2>CR/DR note</td>
+			<td colspan=2>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=2>Total</td>
+			<td colspan=2 id=total>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan=2>Grand Total</td>
+			<td colspan=2 id=grtotal>&nbsp;</td>
+		</tr>
+		<tr><td colspan=15>&nbsp;</td></tr>
+		
+		<script>
+		function cx() {
+			document.getElementById("igstpay").innerHTML=(Number(document.getElementById("inigst").value))*(Number(document.getElementById("subt").innerHTML)/100);
+			document.getElementById("sgstpay").innerHTML=(Number(document.getElementById("insgst").value))*(Number(document.getElementById("subt").innerHTML)/100);
+			document.getElementById("cgstpay").innerHTML=(Number(document.getElementById("insgst").value))*(Number(document.getElementById("subt").innerHTML)/100);
+			document.getElementById("total").innerHTML=(Number(document.getElementById("subt").innerHTML)) +
+								   (Number(document.getElementById("inigst").value))*(Number(document.getElementById("subt").innerHTML)/100) + 
+								   (Number(document.getElementById("insgst").value))*(Number(document.getElementById("subt").innerHTML)/100) + 
+								(Number(document.getElementById("insgst").value))*(Number(document.getElementById("subt").innerHTML)/100);
+			document.getElementById("total").innerHTML=document.getElementById("total").innerHTML.substring(0,document.getElementById("total").innerHTML.indexOf(".")) +
+			document.getElementById("total").innerHTML.substring(document.getElementById("total").innerHTML.indexOf("."),Number(document.getElementById("total").innerHTML.indexOf("."))+3)	;
+
+			document.getElementById("grtotal").innerHTML=document.getElementById("total").innerHTML.substring(0,document.getElementById("total").innerHTML.indexOf("."));			
+			toWords(Number(document.getElementById("grtotal").innerHTML));
+		}	
+		var th = ['','thousand','million', 'billion','trillion'];
+		var dg = ['zero','one','two','three','four', 'five','six','seven','eight','nine'];
+		 var tn = ['ten','eleven','twelve','thirteen', 'fourteen','fifteen','sixteen', 'seventeen','eighteen','nineteen'];
+		 var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+	
+		function toWords(s) {
+		    s = s.toString();
+		    s = s.replace(/[\, ]/g,'');
+		    if (s != parseFloat(s)) return 'not a number';
+		    var x = s.indexOf('.');
+    			if (x == -1)
+		        x = s.length;
+    			if (x > 15)
+        		return 'too big';
+    			var n = s.split(''); 
+    			var str = '';
+    			var sk = 0;
+    			for (var i=0;   i < x;  i++) {
+ 	   		    if ((x-i)%3==2) { 
+ 		        	   if (n[i] == '1') {
+                			str += tn[Number(n[i+1])] + ' ';
+                			i++;
+               				 sk=1;
+            				} else if (n[i]!=0) {
+            				    str += tw[n[i]-2] + ' ';
+            				    sk=1;
+           				 }
+        			} else if (n[i]!=0) { // 0235
+           				 str += dg[n[i]] +' ';
+          				  if ((x-i)%3==0) str += 'hundred ';
+         				   sk=1;
+        					}
+       					 if ((x-i)%3==1) {
+       					     if (sk)
+        				        str += th[(x-i-1)/3] + ' ';
+        					    sk=0;
+    	   					 }
+    					}
+
+    			if (x != s.length) {
+    			    var y = s.length;
+    			    str += 'point ';
+    			    for (var i=x+1; i<y; i++)
+    			        str += dg[n[i]] +' ';
+  			  }
+		    document.getElementById("wrds").innerHTML="Total in words:" + str.replace(/\s+/g,' ')+" only";
+		}	
+		</script>		
+		<tr>
+		<td colspan=5 rowspan=2 id=wrds>Total in words:</td>		
+		<td rowspan=16 colspan=2></td>
+		<td colspan=8 style="text-align:center;">For Quaint Labs Food Products</td>		
+		</tr>
+
+		<tr><td style="border:none;">&nbsp;</td>
+		</tr>
+		
+		<tr>
+		<td colspan=5 rowspan=14 style="font-size:18px;">
+<pre>  Account details 
+    Name:Quaint Labs Food Products  
+    Bank name:Corporation Bank
+    Account type:Current account
+    Branch:MIDC satara 415004
+    Bank A/C no.:510101001274421
+    IFSC code:CORP0003319
+</pre>
+	
+	</td>
+		</tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	<tr><td colspan=8 style="border:none;">&nbsp;</td></tr>
+	
+
+	<tr>		
+		<td style="text-align:center" colspan=8>Authorized Signatory</td>
+		
+	</tr>
+		
+		
+
+
+
+
+
+
+</table>
+
+<script>
+	
+		
+			var bill="";
+			bill=document.getElementById("inbill").value;
+			var indb="";
+			indb=bill.replace("   ","<br>");
+					
+			
+			var sup="";
+			sup=document.getElementById("insup").value;
+			var inds="";
+			inds=sup.replace("   ","<br>");
+
+			var gsn="";
+			gsn=document.getElementById("gstn").value;
+			var phn="";			
+			phn=document.getElementById("ph").value;
+
+
+			var msku="";			
+			msku=document.getElementById("insku").value;
+			var mqty="";			
+			mqty=document.getElementById("inqty").value;
+			var mrate="";			
+			mrate=document.getElementById("inrate").value;
+			var mbch="";			
+			mbch=document.getElementById("inbchno").value;
+			var mexp="";			
+			mexp=document.getElementById("inexp").value;
+			var migst="";			
+			migst=document.getElementById("inigst").value;
+			var msgst="";			
+			msgst=document.getElementById("insgst").value;
+			var mcgst="";			
+			mcgst=document.getElementById("incgst").value;
+		
+		
+			
+			var msku2="";			
+			msku2=document.getElementById("insku2").value;
+			var mqty2="";			
+			mqty2=document.getElementById("inqty2").value;
+			var mrate2="";			
+			mrate2=document.getElementById("inrate2").value;
+			var mbch2="";			
+			mbch2=document.getElementById("inbchno2").value;
+			var mexp2="";			
+			mexp2=document.getElementById("inexp2").value;
+			var migst2="";			
+			migst2=document.getElementById("inigst2").value;
+			var msgst2="";			
+			msgst2=document.getElementById("insgst2").value;
+			var mcgst2="";			
+			mcgst2=document.getElementById("incgst2").value;
+		
+			var msku3="";			
+			msku3=document.getElementById("insku3").value;
+			var mqty3="";			
+			mqty3=document.getElementById("inqty3").value;
+			var mrate3="";			
+			mrate3=document.getElementById("inrate3").value;
+			var mbch3="";			
+			mbch3=document.getElementById("inbchno3").value;
+			var mexp3="";			
+			mexp3=document.getElementById("inexp3").value;
+			var migst3="";			
+			migst3=document.getElementById("inigst3").value;
+			var msgst3="";			
+			msgst3=document.getElementById("insgst3").value;
+			var mcgst3="";			
+			mcgst3=document.getElementById("incgst3").value;
+			
+			var msku4="";			
+			msku4=document.getElementById("insku4").value;
+			var mqty4="";			
+			mqty4=document.getElementById("inqty4").value;
+			var mrate4="";			
+			mrate4=document.getElementById("inrate4").value;
+			var mbch4="";			
+			mbch4=document.getElementById("inbchno4").value;
+			var mexp4="";			
+			mexp4=document.getElementById("inexp4").value;
+			var migst4="";			
+			migst4=document.getElementById("inigst4").value;
+			var msgst4="";			
+			msgst4=document.getElementById("insgst4").value;
+			var mcgst4="";			
+			mcgst4=document.getElementById("incgst4").value;
+		
+			var msku5="";			
+			msku5=document.getElementById("insku5").value;
+			var mqty5="";			
+			mqty5=document.getElementById("inqty5").value;
+			var mrate5="";			
+			mrate5=document.getElementById("inrate5").value;
+			var mbch5="";			
+			mbch5=document.getElementById("inbchno5").value;
+			var mexp5="";			
+			mexp5=document.getElementById("inexp5").value;
+			var migst5="";			
+			migst5=document.getElementById("inigst5").value;
+			var msgst5="";			
+			msgst5=document.getElementById("insgst5").value;
+			var mcgst5="";			
+			mcgst5=document.getElementById("incgst5").value;
+			
+
+	
+</script>
+<script>
+	function addd(){
+		if(document.getElementById("row4").style.visibility == "visible") 
+			document.getElementById("row5").style.visibility = "visible";
+		if(document.getElementById("row3").style.visibility == "visible") 
+			document.getElementById("row4").style.visibility = "visible";
+		if(document.getElementById("row2").style.visibility == "visible") 
+			document.getElementById("row3").style.visibility = "visible";
+		
+		
+		document.getElementById("row2").style.visibility = "visible";
+		
+			
+	}
+	
+	$(document).ready(function(){
+    		$("#xyz").click(function(){
+
+			$("#bill").empty();
+        		$("#phno").empty();
+        		$("#gstin").empty();
+        		$("#supply").empty();
+
+			$("#sku").empty();
+			$("#qty").empty();
+			$("#bchno").empty();
+			$("#exp").empty();
+			$("#igst").empty();
+			$("#rate").empty();
+			$("#sgst").empty();
+			$("#cgst").empty();
+			
+			$("#sku2").empty();
+			$("#qty2").empty();
+			$("#bchno2").empty();
+			$("#exp2").empty();
+			$("#igst2").empty();
+			$("#rate2").empty();
+			$("#sgst2").empty();
+			$("#cgst2").empty();
+			
+			$("#sku3").empty();
+			$("#qty3").empty();
+			$("#bchno3").empty();
+			$("#exp3").empty();
+			$("#igst3").empty();
+			$("#rate3").empty();
+			$("#sgst3").empty();
+			$("#cgst3").empty();
+
+			$("#sku4").empty();
+			$("#qty4").empty();
+			$("#bchno4").empty();
+			$("#exp4").empty();
+			$("#igst4").empty();
+			$("#rate4").empty();
+			$("#sgst4").empty();
+			$("#cgst4").empty();
+
+			$("#sku5").empty();
+			$("#qty5").empty();
+			$("#bchno5").empty();
+			$("#exp5").empty();
+			$("#igst5").empty();
+			$("#rate5").empty();
+			$("#sgst5").empty();
+			$("#cgst5").empty();
+    		});
+		$("#prt").click(function(){
+			$("button").remove();
+        		print();
+			
+		});
+	});
+	function vcg() {
+	
+			document.getElementById("bill").innerHTML="Bill to:"+"<br>"+indb;
+			document.getElementById("supply").innerHTML="supply to:"+"<br>"+inds;
+			document.getElementById("gstin").innerHTML="GSTIN: "+gsn;
+			document.getElementById("phno").innerHTML="Phone NO. : "+phn;
+
+			document.getElementById("sku").innerHTML=msku;
+			document.getElementById("qty").innerHTML=mqty;
+			document.getElementById("bchno").innerHTML=mbch;
+			document.getElementById("exp").innerHTML=mexp;
+			document.getElementById("igst").innerHTML=migst;
+			document.getElementById("rate").innerHTML=mrate;
+			document.getElementById("sgst").innerHTML=msgst;
+			document.getElementById("cgst").innerHTML=mcgst;
+
+			document.getElementById("sku2").innerHTML=msku2;
+			document.getElementById("qty2").innerHTML=mqty2;
+			document.getElementById("bchno2").innerHTML=mbch2;
+			document.getElementById("exp2").innerHTML=mexp2;
+			document.getElementById("igst2").innerHTML=migst2;
+			document.getElementById("rate2").innerHTML=mrate2;
+			document.getElementById("sgst2").innerHTML=msgst2;
+			document.getElementById("cgst2").innerHTML=mcgst2;
+			
+			document.getElementById("sku3").innerHTML=msku3;
+			document.getElementById("qty3").innerHTML=mqty3;
+			document.getElementById("bchno3").innerHTML=mbch3;
+			document.getElementById("exp3").innerHTML=mexp3;
+			document.getElementById("igst3").innerHTML=migst3;
+			document.getElementById("rate3").innerHTML=mrate3;
+			document.getElementById("sgst3").innerHTML=msgst3;
+			document.getElementById("cgst3").innerHTML=mcgst3;
+
+			document.getElementById("sku4").innerHTML=msku4;
+			document.getElementById("qty4").innerHTML=mqty4;
+			document.getElementById("bchno4").innerHTML=mbch4;
+			document.getElementById("exp4").innerHTML=mexp4;
+			document.getElementById("igst4").innerHTML=migst4;
+			document.getElementById("rate4").innerHTML=mrate4;
+			document.getElementById("sgst4").innerHTML=msgst4;
+			document.getElementById("cgst4").innerHTML=mcgst4;
+
+			document.getElementById("sku5").innerHTML=msku5;
+			document.getElementById("qty5").innerHTML=mqty5;
+			document.getElementById("bchno5").innerHTML=mbch5;
+			document.getElementById("exp5").innerHTML=mexp5;
+			document.getElementById("igst5").innerHTML=migst5;
+			document.getElementById("rate5").innerHTML=mrate5;
+			document.getElementById("sgst5").innerHTML=msgst5;
+			document.getElementById("cgst5").innerHTML=mcgst5;
+			
+	}
+	
+	
+
+	
+</script>
+<button onclick=addd()>add</button>
+
+<button id=xyz>final</button>
+<button onclick=vcg()>show</button>
+<button id=prt >print</button>
+
+
+</body>
+</html>
+			
+
+		
+	
+		
